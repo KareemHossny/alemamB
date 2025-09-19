@@ -18,11 +18,27 @@ app.use(helmet({
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS مقفول على الدومين بتاع الفرونت
-app.use(cors({
-  origin: "http://localhost:3000", // نفس الدومين اللي شغال عليه الفرونت
-  credentials: true
-}));
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://alemam.vercel.app"
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // لو مفيش origin (زي Postman) اسمح عادي
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true); // اسمح
+      } else {
+        callback(new Error("Not allowed by CORS")); // ارفض
+      }
+    },
+    credentials: true,
+  })
+);
+
 
 
 // Connect to MongoDB
