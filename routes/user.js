@@ -6,13 +6,14 @@ const jwt = require("jsonwebtoken");
 userRouter.post('/AlEmam-User',usercontroller.User);
 
 userRouter.post("/logout", (req, res) => {
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-    });
-    return res.json({ success: true, message: "Logged out successfully" });
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "none", // ✅ خليها زي login
   });
+  return res.json({ success: true, message: "Logged out successfully" });
+});
+
 
 userRouter.get("/check", (req, res) => {
     console.log("📩 Cookies received:", req.cookies);
