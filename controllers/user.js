@@ -17,11 +17,13 @@ exports.User = async (req, res) => {
       const token = createToken(email);
 
       // تخزين التوكن في HttpOnly Cookie
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // HTTPS فقط في البروكشن
-        sameSite: "strict",
-      });
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,  // مهم
+  sameSite: "none", 
+});
+
+
 
       return res.json({ success: true, message: "Login successful" });
     } 
