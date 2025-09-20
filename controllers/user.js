@@ -6,18 +6,20 @@ const createToken = (email) => {
 
 exports.User = async (req, res) => {
   try {
-    console.log("📥 Login request received:", req.body); // <-- أضف ده
+    console.log("📥 Login request received:"); // <-- أضف ده
 
     const { email, password } = req.body;
     if (email === process.env.USER_EMAIL && password === process.env.USER_PASSWORD) {
       const token = createToken(email);
 
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      });
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,        // خليه دايمًا true على Vercel لأنه https
+  sameSite: "none",    // لازم none عشان الكوكي يتبعت cross-site
+  path: "/",           // مهم جدًا عشان الكوكي يبقى متاح لكل ال routes
+  maxAge: 30 * 24 * 60 * 60 * 1000, 
+});
+
 
       console.log("✅ Login successful for:", email);
       return res.json({ success: true, message: "Login successful" });
