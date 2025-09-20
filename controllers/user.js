@@ -1,6 +1,6 @@
 // controllers/user.js
 const createToken = (email) => {
-  return jwt.sign({ email }, process.env.JWT_SECRET);
+  return jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
 exports.User = async (req, res) => {
