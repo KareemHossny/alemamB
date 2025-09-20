@@ -18,12 +18,8 @@ app.use(
 );
 
 // Allowed origins
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://alemam.vercel.app",
-  "https://alemam-b.vercel.app",
-  "https://alemam-b-kareems-projects-cc09171a.vercel.app"
-];
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
+
 
 app.use(
   cors({
