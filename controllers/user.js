@@ -1,4 +1,5 @@
-// controllers/user.js
+const jwt = require("jsonwebtoken");
+
 const createToken = (email) => {
   return jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
