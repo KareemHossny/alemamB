@@ -2,15 +2,21 @@ const jwt = require("jsonwebtoken");
 
 const UserAuth = (req, res, next) => {
   try {
-    const token = req.cookies.token; // التوكن من الكوكي
+    console.log("📩 Incoming cookies:", req.cookies);
+    const token = req.cookies.token;
 
     if (!token) {
+      console.log("❌ No token found in request");
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
 
+    console.log("🔑 Token received:", token);
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("✅ Decoded token payload:", decoded);
 
     if (decoded.email !== process.env.USER_EMAIL) {
+      console.log("⚠️ Email mismatch:", decoded.email, "vs", process.env.USER_EMAIL);
       return res.status(403).json({ success: false, message: "Forbidden" });
     }
 
