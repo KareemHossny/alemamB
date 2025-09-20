@@ -9,10 +9,11 @@ userRouter.post("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "none", // ✅ خليها زي login
+    sameSite: "none",
   });
   return res.json({ success: true, message: "Logged out successfully" });
 });
+
 
 
 userRouter.get("/check", (req, res) => {
