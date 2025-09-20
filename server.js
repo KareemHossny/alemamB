@@ -22,6 +22,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://alemam.vercel.app",
   "https://alemam-b.vercel.app",
+  "https://alemam-b-kareems-projects-cc09171a.vercel.app"
 ];
 
 app.use(
